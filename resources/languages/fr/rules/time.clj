@@ -367,11 +367,11 @@
   (assoc (interval (hour 17 false) (hour 19 false) false) :form :part-of-day :latent true)
 
   "début de journée"
-  #"(?i)d[ée]but de journ[ée]e"
+  #"(?i)d[ée]but de journ[ée]e|t[oô]t dans la journ[ée]e"
   (assoc (interval (hour 6 false) (hour 10 false) false) :form :part-of-day :latent true)
 
   "fin de journée"
-  #"(?i)fin de journ[ée]e"
+  #"(?i)fin de journ[ée]e|tard dans la journ[ée]e"
   (assoc (interval (hour 17 false) (hour 21 false) false) :form :part-of-day :latent true)
 
   "soir"
@@ -509,13 +509,13 @@
     true)
 
   "fin <named-month>(interval)"
-  [#"fin( du mois d[e']? ?)?" {:form :month}]
+  [#"fin( du mois d[e']?)?|tard (dans le mois (de|d')|en)" {:form :month}]
   (interval (intersect %2 (day-of-month 25))
          (cycle-last-of  {:dim :cycle :grain :day} %2)
           true)
 
   "début <named-month>(interval)"
-  [#"début( du mois d[e'] ?)?" {:form :month}]
+  [#"début( du mois d[e'])?|t[oô]t (dans le mois (de|d')|en)?" {:form :month}]
   (interval (intersect %2 (day-of-month 1))
         (intersect %2 (day-of-month 5))
         true)

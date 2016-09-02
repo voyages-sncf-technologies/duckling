@@ -494,9 +494,11 @@
   (datetime-interval [2013 2 12 17] [2013 2 12 19])
 
   "en début de journée"
+  "tot dans la journée"
   (datetime-interval [2013 2 12 6] [2013 2 12 10])
 
   "en fin de journée"
+  "tard dans la journée"
   (datetime-interval [2013 2 12 17] [2013 2 12 21])
 
   "ce soir"
@@ -527,6 +529,7 @@
   (datetime-interval [2013 9 6 18] [2013 9 9 00])
 
   "le deuxième week-end de septembre"
+  "le second week-end de septembre"
   (datetime-interval [2013 9 13 18] [2013 9 16 00])
 
   "le dernier week-end de septembre"
