@@ -120,9 +120,9 @@
   ;;
 
   "ordinals (premier..seizieme)"
-  #"(?i)(premi(ere?|ère)|(deux|trois|quatr|cinqu|six|sept|huit|neuv|dix|onz|douz|treiz|quatorz|quinz|seiz)i[eè]me)"
+  #"(?i)(premi(ere?|ère)|seconde?|(deux|trois|quatr|cinqu|six|sept|huit|neuv|dix|onz|douz|treiz|quatorz|quinz|seiz)i[eè]me)"
   {:dim :ordinal
-   :value (get {"premier" 1 "premiere" 1 "première" 1 "deuxieme" 2 "troisieme" 3 "quatrieme" 4 "cinquieme" 5 "sixieme" 6 "septieme" 7 "huitieme" 8 "neuvieme" 9 "dixieme" 10 "onzieme" 11 "douzieme" 12 "treizieme" 13 "quatorzieme" 14 "quinzieme" 15 "seizieme" 16 "deuxième" 2 "troisième" 3 "quatrième" 4 "cinquième" 5 "sixième" 6 "septième" 7 "huitième" 8 "neuvième" 9 "dixième" 10 "onzième" 11 "douzième" 12 "treizième" 13 "quatorzième" 14 "quinzième" 15 "seizième" 16}
+   :value (get {"premier" 1 "premiere" 1 "première" 1 "deuxieme" 2 "second" 2 "seconde" 2 "troisieme" 3 "quatrieme" 4 "cinquieme" 5 "sixieme" 6 "septieme" 7 "huitieme" 8 "neuvieme" 9 "dixieme" 10 "onzieme" 11 "douzieme" 12 "treizieme" 13 "quatorzieme" 14 "quinzieme" 15 "seizieme" 16 "deuxième" 2 "troisième" 3 "quatrième" 4 "cinquième" 5 "sixième" 6 "septième" 7 "huitième" 8 "neuvième" 9 "dixième" 10 "onzième" 11 "douzième" 12 "treizième" 13 "quatorzième" 14 "quinzième" 15 "seizième" 16}
               (-> %1 :groups first clojure.string/lower-case))}
 
 
