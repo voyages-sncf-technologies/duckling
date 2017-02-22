@@ -6,6 +6,7 @@
   3. tokens containing final info are produced using their production rules"
   (:use [clojure.tools.logging])
   (:require [clojure.set :as sets]
+            [clojure.stacktrace]
             [duckling.time.prod]
             [duckling.time.api :as time]
             [duckling.util :as util]))
@@ -134,7 +135,8 @@
                                     (subs sentence pos end)
                                     (:name rule)
                                     sentence
-                                    e (.printStackTrace e))
+                                    e
+                                    (with-out-str (clojure.stacktrace/print-stack-trace e)))
                         {:exception e}))))))
 
 (defn- never-produced?
@@ -163,9 +165,13 @@
                       (conj route token)
                       results)))
                 (catch Exception e
-                  (.printStackTrace e)
-                  (prn stash)
-                  (throw (ex-info "Exception @match" {:exception e}))))))]
+                  ;; (.printStackTrace e) - probably use logging/debug and turn logging output
+                  ;; (prn stash)
+                  (throw (ex-info (format "Exception @match stack=%s stash=%s"
+                                          (with-out-str (clojure.stacktrace/print-stack-trace e))
+                                          (with-out-str (pr stash)))
+                                  {:exception e}))
+                  ))))]
     (match-recur pattern true stash 0 [] [])))
 
 (defn- pass-once
@@ -198,9 +204,9 @@
       (if (or max-iter-reached? max-stash-reached? finished?)
         (do
           (when max-iter-reached?
-            (warnf (format "@pass-all reached maximum iterations for sentence '%s'" sentence)))
+            (warnf "@pass-all reached maximum iterations for sentence '%s'" sentence))
           (when max-stash-reached?
-            (warnf (format "@pass-all reached maximum stash size for sentence '%s'" sentence)))
+            (warnf "@pass-all reached maximum stash size for sentence '%s'" sentence))
           stash)
         (recur (pass-once stash rules sentence) (count stash) (dec remaining-iter))))))
 

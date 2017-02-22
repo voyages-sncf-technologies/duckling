@@ -157,7 +157,7 @@
   #"(?i)labor day week(\s|-)?end"
   (interval (intersect (cycle-nth-after :day -3 (intersect (day-of-week 1) (month 9))) (hour 18 false))
             (intersect (month 9) (day-of-week 2) (hour 0 false)) ;need to use Tuesday to include monday
-            true)
+            false)
 
   "Father's Day";third Sunday of June
   #"(?i)father'?s?'? day"
@@ -188,15 +188,15 @@
   (cycle-nth :second 0)
 
   "today"
-  #"(?i)today|(at this time)"
+  #"(?i)todays?|(at this time)"
   (cycle-nth :day 0)
 
   "tomorrow"
-  #"(?i)(tmrw?|tomm?or?row)"
+  #"(?i)(tmrw?|tomm?or?rows?)"
   (cycle-nth :day 1)
 
   "yesterday"
-  #"(?i)yesterday"
+  #"(?i)yesterdays?"
   (cycle-nth :day -1)
 
   "EOM|End of month"
@@ -220,7 +220,7 @@
   ;; "this month" => now is part of it
   ; See also: cycles in en.cycles.clj
   "this <time>"
-  [#"(?i)this|coming" (dim :time)]
+  [#"(?i)this|current|coming" (dim :time)]
   (pred-nth %2 0)
 
   "next <time>"
@@ -453,6 +453,10 @@
   "morning" ;; TODO "3am this morning" won't work since morning starts at 4...
   [#"(?i)morning"]
   (assoc (interval (hour 4 false) (hour 12 false) false) :form :part-of-day :latent true)
+
+  "early morning"
+  [#"(?i)early ((in|hours of) the )?morning"]
+  (assoc (interval (hour 4 false) (hour 9 false) false) :form :part-of-day :latent true)
 
   "afternoon"
   [#"(?i)after ?noo?n"]

@@ -10,6 +10,11 @@
   [(dim :time #(not (:latent %))) #"(?i)de|," (dim :time #(not (:latent %)))] ; sequence of two tokens with a time fn
   (intersect %1 %3)
 
+  ; same thing, with "mais/par exemple/plutôt/" in between like "mardi, mais à 14 heures"
+  "intersect by 'mais/par exemple/plutôt'"
+  [(dim :time #(not (:latent %))) #"(?i)mais|par exemple|plutôt" (dim :time #(not (:latent %)))] ; sequence of two tokens with a time fn
+  (intersect %1 %3)
+
   "en <named-month>" ; en mars
   [#"(?i)en|au mois de?'?" {:form :month}]
   %2 ; does NOT dissoc latent
@@ -130,6 +135,12 @@
   #"(?i)hier|la veille"
   (cycle-nth :day -1)
 
+  "fin du mois"
+  #"(?i)(([aà] )?la )?fin (du|de) mois"
+  (assoc (interval (cycle-nth-after :day -10 (cycle-nth :month 1))
+                   (cycle-nth :month 1) false)
+          :form :part-of-day :latent true)
+
   "après-demain"
   #"(?i)apr(e|è)s[- ]?demain"
   (cycle-nth :day 2)
@@ -241,6 +252,9 @@
   [{:form :day-of-week} (integer 1 31)]
   (day-of-month (:value %2))
 
+  "<day-of-week> <day-of-month> à <time-of-day>)"
+  [{:form :day-of-week} (integer 1 31) {:form :time-of-day}]
+  (intersect (day-of-month (:value %2)) %3)
 
   ; Hours and minutes (absolute time)
   ;
@@ -347,12 +361,38 @@
   (assoc (interval (hour 4 false) (hour 12 false) false) :form :part-of-day :latent true)
 
   "début de matinée"
-  #"(?i)d[ée]but de matin[ée]e"
-  (assoc (interval (hour 7 false) (hour 9 false) false) :form :part-of-day :latent true)
+  #"(?i)(le matin (tr[eè]s )?t[ôo]t|(tr[eè]s )?t[ôo]t le matin|d[ée]but de matin[ée]e)"
+  (assoc (interval (hour 4 false) (hour 9 false) false) :form :part-of-day :latent true)
+
+  "milieu de matinée"
+  #"(?i)milieu de matin[ée]e"
+  (assoc (interval (hour 9 false) (hour 11 false) false) :form :part-of-day :latent true)
 
   "fin de matinée"
   #"(?i)fin de matin[ée]e"
   (assoc (interval (hour 10 false) (hour 12 false) false) :form :part-of-day :latent true)
+
+  "au déjeuner"
+  #"(?i)([àa] l(')?heure du|pendant( le)?|au)? d[eéè]jeuner"
+  (assoc (interval (hour 12 false) (hour 14 false) false) :form :part-of-day :latent true)
+
+  "après le déjeuner"
+  #"(?i)apr[eè]s (le )?d[eéè]jeuner"
+  (assoc (intersect (cycle-nth :day 0)
+                    (interval (hour 13 false) (hour 17 false) false))
+         :form :part-of-day) ; no :latent
+
+  "avant le déjeuner"
+  #"(?i)avant (le )?d[eéè]jeuner"
+  (assoc (intersect (cycle-nth :day 0)
+                    (interval (hour 10 false) (hour 12 false) false))
+         :form :part-of-day)
+
+   "après le travail"
+   #"(?i)apr[eè]s (le )?travail"
+   (assoc (intersect (cycle-nth :day 0)
+                     (interval (hour 17 false) (hour 21 false) false))
+          :form :part-of-day)
 
   "après-midi"
   #"(?i)apr[eéè](s?[ \-]?midi|m)"
@@ -362,6 +402,10 @@
   #"(?i)d[ée]but d'apr[eéè](s?[ \-]?midi|m)"
   (assoc (interval (hour 12 false) (hour 14 false) false) :form :part-of-day :latent true)
 
+  "milieu d'après-midi"
+  #"(?i)milieu d'apr[eéè]s?[ \-]?midi"
+  (assoc (interval (hour 15 false) (hour 17 false) false) :form :part-of-day :latent true)
+
   "fin d'après-midi"
   #"(?i)fin d'apr[eéè](s?[ \-]?midi|m)"
   (assoc (interval (hour 17 false) (hour 19 false) false) :form :part-of-day :latent true)
@@ -370,6 +414,10 @@
   #"(?i)d[ée]but de journ[ée]e|t[oô]t dans la journ[ée]e"
   (assoc (interval (hour 6 false) (hour 10 false) false) :form :part-of-day :latent true)
 
+  "milieu de journée"
+  #"(?i)milieu de journ[ée]e"
+  (assoc (interval (hour 11 false) (hour 16 false) false) :form :part-of-day :latent true)
+
   "fin de journée"
   #"(?i)fin de journ[ée]e|tard dans la journ[ée]e"
   (assoc (interval (hour 17 false) (hour 21 false) false) :form :part-of-day :latent true)
@@ -377,6 +425,14 @@
   "soir"
   #"(?i)soir[ée]?e?"
   (assoc (interval (hour 18 false) (hour 0 false) false) :form :part-of-day :latent true)
+
+  "début de soirée"
+  #"(?i)d[ée]but de soir[ée]e?"
+  (assoc (interval (hour 18 false) (hour 21 false) false) :form :part-of-day :latent true)
+
+  "fin de soirée"
+  #"(?i)fin de soir[ée]e?"
+  (assoc (interval (hour 21 false) (hour 0 false) false) :form :part-of-day :latent true)
 
   "du|dans le <part-of-day>" ;; removes latent
   [#"(?i)du|dans l[ae']? ?|au|en|l[ae' ]|dès l?[ae']? ?" {:form :part-of-day}]
@@ -412,16 +468,20 @@
             false)
 
   "début de semaine"
-  #"(?i)(en)? début de semaine"
+  [#"(?i)(en |au )?début de (cette |la )?semaine"]
   (interval (day-of-week 1) (day-of-week 2) false)
 
   "milieu de semaine"
-  #"(?i)(en)? milieu de semaine"
+  [#"(?i)(en |au )?milieu de (cette |la )?semaine"]
   (interval (day-of-week 3) (day-of-week 4) false)
 
   "fin de semaine"
-    #"(?i)(en)? fin de semaine"
+  [#"(?i)(en |à la )?fin de (cette |la )?semaine"]
     (interval (day-of-week 4) (day-of-week 7) false)
+
+  "en semaine"
+  [#"(?i)(pendant la |en )?semaine"]
+    (interval (day-of-week 1) (day-of-week 5) false)
 
   "season"
   #"(?i)(cet )?été" ;could be smarter and take the exact hour into account... also some years the day can change
@@ -450,7 +510,7 @@
   ; Time zones
 
   "timezone"
-  #"(?i)(YEKT|YEKST|YAPT|YAKT|YAKST|WT|WST|WITA|WIT|WIB|WGT|WGST|WFT|WEZ|WET|WESZ|WEST|WAT|WAST|VUT|VLAT|VLAST|VET|UZT|UYT|UYST|UTC|ULAT|TVT|TMT|TLT|TKT|TJT|TFT|TAHT|SST|SRT|SGT|SCT|SBT|SAST|SAMT|RET|PYT|PYST|PWT|PT|PST|PONT|PMST|PMDT|PKT|PHT|PHOT|PGT|PETT|PETST|PET|PDT|OMST|OMSST|NZST|NZDT|NUT|NST|NPT|NOVT|NOVST|NFT|NDT|NCT|MYT|MVT|MUT|MST|MSK|MSD|MMT|MHT|MEZ|MESZ|MDT|MAWT|MART|MAGT|MAGST|LINT|LHST|LHDT|KUYT|KST|KRAT|KRAST|KGT|JST|IST|IRST|IRKT|IRKST|IRDT|IOT|IDT|ICT|HOVT|HNY|HNT|HNR|HNP|HNE|HNC|HNA|HLV|HKT|HAY|HAT|HAST|HAR|HAP|HAE|HADT|HAC|HAA|GYT|GST|GMT|GILT|GFT|GET|GAMT|GALT|FNT|FKT|FKST|FJT|FJST|ET|EST|EGT|EGST|EET|EEST|EDT|ECT|EAT|EAST|EASST|DAVT|ChST|CXT|CVT|CST|COT|CLT|CLST|CKT|CHAST|CHADT|CET|CEST|CDT|CCT|CAT|CAST|BTT|BST|BRT|BRST|BOT|BNT|AZT|AZST|AZOT|AZOST|AWST|AWDT|AST|ART|AQTT|ANAT|ANAST|AMT|AMST|ALMT|AKST|AKDT|AFT|AEST|AEDT|ADT|ACST|ACDT)"
+  #"((?i)(YEKT|YEKST|YAPT|YAKT|YAKST|WT|WST|WITA|WIT|WIB|WGT|WGST|WFT|WEZ|WET|WESZ|WEST|WAT|WAST|VUT|VLAT|VLAST|VET|UZT|UYT|UYST|UTC|ULAT|TVT|TMT|TLT|TKT|TJT|TFT|TAHT|SST|SRT|SGT|SCT|SBT|SAST|SAMT|RET|PYT|PYST|PWT|PT|PST|PONT|PMST|PMDT|PKT|PHT|PHOT|PGT|PETT|PETST|PET|PDT|OMST|OMSST|NZST|NZDT|NUT|NST|NPT|NOVT|NOVST|NFT|NDT|NCT|MYT|MVT|MUT|MST|MSK|MSD|MMT|MHT|MEZ|MESZ|MDT|MAWT|MART|MAGT|MAGST|LINT|LHST|LHDT|KUYT|KST|KRAT|KRAST|KGT|JST|IST|IRST|IRKT|IRKST|IRDT|IOT|IDT|ICT|HOVT|HNY|HNT|HNR|HNP|HNE|HNC|HNA|HLV|HKT|HAY|HAT|HAST|HAR|HAP|HAE|HADT|HAC|HAA|GYT|GST|GMT|GILT|GFT|GET|GAMT|GALT|FNT|FKT|FKST|FJT|FJST|EST|EGT|EGST|EET|EEST|EDT|ECT|EAT|EAST|EASST|DAVT|ChST|CXT|CVT|CST|COT|CLT|CLST|CKT|CHAST|CHADT|CET|CEST|CDT|CCT|CAT|CAST|BTT|BST|BRT|BRST|BOT|BNT|AZT|AZST|AZOT|AZOST|AWST|AWDT|AST|ART|AQTT|ANAT|ANAST|AMT|AMST|ALMT|AKST|AKDT|AFT|AEST|AEDT|ADT|ACST|ACDT)|(?-i)ET)"
   {:dim :timezone
    :value (-> %1 :groups first clojure.string/upper-case)}
 
@@ -520,6 +580,17 @@
         (intersect %2 (day-of-month 5))
         true)
 
+  "première quinzaine de <named-month>(interval)"
+  [#"(premi[èe]re|1 ?[èe]re) (quinzaine|15 ?aine) d[e']" {:form :month}]
+  (interval (intersect %2 (day-of-month 1))
+        (intersect %2 (day-of-month 14))
+              true)
+
+  "deuxième quinzaine de <named-month>(interval)"
+  [#"(deuxi[èe]me|2 ?[èe]me) (quinzaine|15 ?aine) d[e']" {:form :month}]
+  (interval (intersect %2 (day-of-month 15))
+        (cycle-last-of {:dim :cycle :grain :day} %2)
+              true)
   "<named-month>"
   [#"(?i)mi[- ]" {:form :month}]
   (interval (intersect %2 (day-of-month 10))

@@ -129,10 +129,13 @@
 ;   ;; Cycles
 
   "this week"
+  "current week"
   "coming week"
   (datetime 2013 2 11 :grain :week)
 
   "last week"
+  "past week"
+  "previous week"
   (datetime 2013 2 4 :grain :week)
 
   "next week"
@@ -146,24 +149,36 @@
   (datetime 2013 3)
 
   "this quarter"
+  "this qtr"
   (datetime 2013 1 1 :grain :quarter)
 
   "next quarter"
+  "next qtr"
   (datetime 2013 4 1 :grain :quarter)
 
   "third quarter"
+  "3rd quarter"
+  "third qtr"
+  "3rd qtr"
+  "the 3rd qtr"
   (datetime 2013 7 1 :grain :quarter)
 
   "4th quarter 2018"
+  "4th qtr 2018"
+  "the 4th qtr of 2018"
   (datetime 2018 10 1 :grain :quarter)
 
   "last year"
+  "last yr"
   (datetime 2012)
 
   "this year"
+  "current year"
+  "this yr"
   (datetime 2013)
 
   "next year"
+  "next yr"
   (datetime 2014)
 
   "last sunday"
@@ -352,8 +367,23 @@
   "in 60 minutes"
   (datetime 2013 2 12 5 30 0)
 
+  "about a quarter of an hour"
+  "about 1/4h"
+  "about 1/4 h"
+  "about 1/4 hour"
+  (datetime 2013 2 12 4 45 0)
+
   "in half an hour"
+  "in 1/2h"
+  "in 1/2 h"
+  "in 1/2 hour"
   (datetime 2013 2 12 5 0 0)
+
+  "for three-quarters of an hour"
+  "for 3/4h"
+  "for 3/4 h"
+  "for 3/4 hour"
+  (datetime 2013 2 12 5 15 0)
 
   "in 2.5 hours"
   "in 2 and an half hours"
@@ -372,6 +402,8 @@
   (datetime 2013 2 12 7 30)
 
   "in 24 hours"
+  "in 24hrs"
+  "in 24 hrs"
   (datetime 2013 2 13 4 30)
 
   "in a day"
@@ -443,6 +475,7 @@
   ; Seasons
 
   "this summer"
+  "current summer"
   (datetime-interval [2013 6 21] [2013 9 24])
 
   "this winter"
@@ -487,6 +520,9 @@
   "labor day"
   (datetime 2013 9 2)
 
+  "labor day weekend"
+  (datetime-interval [2013 8 30 18] [2013 9 3 0])
+
   "halloween"
   (datetime 2013 10 31)
 
@@ -522,6 +558,11 @@
   "monday morning"
   (datetime-interval [2013 2 18 4] [2013 2 18 12])
 
+  "monday early in the morning"
+  "monday early morning"
+  "monday in the early hours of the morning"
+  (datetime-interval [2013 2 18 4] [2013 2 18 9])
+
   "february the 15th in the morning"
   "15 of february in the morning"
   "morning of the 15th of february"
@@ -547,8 +588,16 @@
   (datetime-interval [2013 2 12 4 31] [2013 2 12 4 34])
 
   "last 1 hour"
+  "last 1 hr"
   "last one hour"
   (datetime-interval [2013 2 12 3] [2013 2 12 4])
+
+  "last 24 hours"
+  "last twenty four hours"
+  "last twenty four hrs"
+  "last 24 hrs"
+  "last 24hrs"
+  (datetime-interval [2013 2 11 4] [2013 2 12 4])
 
   "next 3 hours"
   "next three hours"

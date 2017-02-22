@@ -33,6 +33,12 @@
 {:dim :unit
  :unit "£"}
 
+;Australian Dollar Currency
+"AUD"
+#"(?i)AUD"
+{:dim :unit
+ :unit "AUD"}
+
 "USD"
 #"(?i)US[D\$]"
 {:dim :unit
@@ -61,10 +67,40 @@
 
 ;Emirates Currency
 "AED"
-#"(?i)AED|AED(. )?|(D|d)irhams?"
+#"(?i)AED|(D|d)irhams?"
 {:dim :unit
  :unit "AED"}
+ 
+;Saudi riyal
+"SAR"
+#"(?i)SAR|(S|s)audiriyal|(S|s)audi riyal?"
+{:dim :unit
+ :unit "SAR"}
+ 
+ ;qatari riyal
+"QAR"
+#"(?i)QAR|(q|Q)ataririyal|(q|Q)atari riyal ?"
+{:dim :unit
+ :unit "QAR"}
+ 
+ ;Egyptian Pound
+ "EGP"
+#"(?i)EGP|(E|e)gyptianpound|(E|e)gyptian Pound ?"
+{:dim :unit
+ :unit "EGP"}
+ 
+ ;Lebanese Pound
+ "LBP"
+#"(?i)LBP|(L|l)ebanesepound|(L|l)ebanese Pound ?"
+{:dim :unit
+ :unit "LBP"}
 
+  ;Kuwaiti Dinar
+ "KWD"
+#"(?i)KWD|(K|k)uwaitidinar|(K|k)uwaiti Dinar ?"
+{:dim :unit
+ :unit "KWD"}
+ 
 "unnamed currency"
 #"(?i)(buck|balle|pouloute)s?"
 {:dim :unit}
