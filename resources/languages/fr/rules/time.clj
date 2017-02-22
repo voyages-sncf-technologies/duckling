@@ -115,15 +115,15 @@
   (month-day 5 1)
 
   "maintenant"
-  #"maintenant|(tout de suite)"
+  #"(?i)maintenant|tout de suite"
   (cycle-nth :second 0)
 
   "aujourd'hui"
-  #"(?i)(aujourd'? ?hui)|(ce jour)|(dans la journ[ée]e?)|(en ce moment)"
+  #"(?i)aujourd'? ?hui|ce jour|dans la journ[ée]e?|en ce moment"
   (cycle-nth :day 0)
 
   "demain"
-  #"(?i)(demain)|(le lendemain)"
+  #"(?i)demain|le lendemain|dem1"
   (cycle-nth :day 1)
 
   "hier"
@@ -185,13 +185,13 @@
   (cycle-last-of %2 %4)
 
   "<ordinal> week-end de <time>"
-  [(dim :ordinal) #"week(\s|-)?end (d['eu]|en|du mois de)" {:form :month}]
+  [(dim :ordinal) #"(week(\s|-)?end|we) (d['eu]|en|du mois de)" {:form :month}]
   (pred-nth (intersect %3 (interval
               (intersect (day-of-week 5) (hour 18 false))
               (intersect (day-of-week 1) (hour 0 false)) false) ) (dec (:value %1)))
 
   "dernier week-end de <time>"
-  [#"(?i)dernier week(\s|-)?end (d['eu]|en|du mois de)" {:form :month}]
+  [#"(?i)dernier (week(\s|-)?end|we) (d['eu]|en|du mois de)" {:form :month}]
   (pred-last-of (interval (intersect (day-of-week 5) (hour 18 false))
                           (intersect (day-of-week 1) (hour 0 false)) false)  %2)
 
@@ -355,15 +355,15 @@
   (assoc (interval (hour 10 false) (hour 12 false) false) :form :part-of-day :latent true)
 
   "après-midi"
-  #"(?i)apr[eéè]s?[ \-]?midi"
+  #"(?i)apr[eéè](s?[ \-]?midi|m)"
   (assoc (interval (hour 12 false) (hour 19 false) false) :form :part-of-day :latent true)
 
   "début d'après-midi"
-  #"(?i)d[ée]but d'apr[eéè]s?[ \-]?midi"
+  #"(?i)d[ée]but d'apr[eéè](s?[ \-]?midi|m)"
   (assoc (interval (hour 12 false) (hour 14 false) false) :form :part-of-day :latent true)
 
   "fin d'après-midi"
-  #"(?i)fin d'apr[eéè]s?[ \-]?midi"
+  #"(?i)fin d'apr[eéè](s?[ \-]?midi|m)"
   (assoc (interval (hour 17 false) (hour 19 false) false) :form :part-of-day :latent true)
 
   "début de journée"
@@ -406,7 +406,7 @@
 
   ; Other intervals: week-end, seasons
   "week-end"
-  #"(?i)week(\s|-)?end"
+  #"(?i)week(\s|-)?end|we"
   (interval (intersect (day-of-week 5) (hour 18 false))
             (intersect (day-of-week 1) (hour 0 false))
             false)
@@ -566,15 +566,15 @@
 
   ; One-sided Intervals
   "avant <time-of-day>"
-  [#"(?i)(n[ ']importe quand )?(avant|jusqu'(a|à))" (dim :time)]
+  [#"(?i)(n[ ']importe quand )?(avant|jusqu'[aà])" (dim :time)]
   (merge %2 {:direction :before})
 
   "après <time-of-day>"
-  [#"(?i)(apr(e|è)s|(a|à) partir de)" (dim :time)]
+  [#"(?i)apr[eè]s|[aà] partir de" (dim :time)]
   (merge %2 {:direction :after})
 
   "après le <day-of-month>"
-  [#"(?i)(apr(e|è)s le|(a|à) partir du)" (integer 1 31)]
+  [#"(?i)apr[eè]s le|[aà] partir du" (integer 1 31)]
   (merge (day-of-month (:value %2)) {:direction :after})
 
 )

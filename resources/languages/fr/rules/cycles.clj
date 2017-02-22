@@ -37,7 +37,7 @@
    :grain :year}
   
   "ce|dans le <cycle>"
-  [#"(?i)(cet?t?e?s?)|(dans l[ae']? ?)" (dim :cycle)]
+  [#"(?i)(cet?t?e?s?)|((dans|sur) l[ae']? ?)" (dim :cycle)]
   (cycle-nth (:grain %2) 0)
 
   "le <cycle> dernier"

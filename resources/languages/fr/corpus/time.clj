@@ -250,6 +250,7 @@
 
   "cette semaine"
   "dans la semaine"
+  "sur la semaine"
   (datetime 2013 2 11 :grain :week)
 
   "la semaine dernière"
@@ -415,6 +416,8 @@
   ;"dans 2 jours au soir"
   ;(datetime 2013 2 14 10)
 
+  ;"dans 2 semaines dans l'après-midi"
+
   "dans 7 jours"
   (datetime 2013 2 19 4)
   
@@ -475,6 +478,8 @@
   
   "cet après-midi"
   "l'après-midi"
+  "dans l'après-midi"
+  "dans l'aprèm"
   (datetime-interval [2013 2 12 12] [2013 2 12 19])
 
   "en début de matinée"
@@ -514,6 +519,7 @@
   (datetime-interval [2013 2 11 18] [2013 2 12 00])
   
   "ce week-end"
+  "ce we"
   (datetime-interval [2013 2 15 18] [2013 2 18 00])
 
   "en début de semaine"
