@@ -330,6 +330,9 @@
   [(dim :time :full-hour) #"et|(pass[ée]e? de)" #(:relative-minutes %)]
   (hour-relativemin (:full-hour %1) (:relative-minutes %3) (:twelve-hour-clock? %1))
 
+  "<day-of-month>(ordinal) <named-month> year" ; 12 mars 12
+  [(integer 1 31) {:form :month} #"(\d{2,4})"]
+  (intersect %2 (day-of-month (:value %1)) (year (Integer/parseInt(first (:groups %3)))))
 
   ;; Formatted dates and times
 
