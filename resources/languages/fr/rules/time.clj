@@ -103,6 +103,10 @@
   #"(?i)(jour de )?no[eë]l"
   (month-day 12 25)
 
+  "st valentin"
+  #"(?i)(la )?(st|saint) ?valentin"
+  (month-day 02 14)
+
   "soir de noël"
   #"(?i)soir(ée)? de no[eë]l"
   (interval (intersect (month-day 12 24) (hour 18)) (intersect (month-day 12 25) (hour 00)) false)

@@ -481,6 +481,9 @@
   "fête du travail"
   (datetime 2013 05 1)
 
+  "la st valentin"
+  (datetime 2013 02 14)
+
   ; Part of day (morning, afternoon...)
 
   "cet après-midi"
