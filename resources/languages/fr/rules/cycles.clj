@@ -63,6 +63,14 @@
   "n <cycle> après"
   [(integer 2 9999) (dim :cycle) #"(?i)(d')? ?apr[eèé]s|qui sui(t|ves?)|plus tard" ]
   (cycle-nth (:grain %2) (:value %1))
+
+  "dans n jours"
+  [#"(?i)dans ?" (integer 2 9999) #"(?i)jours?" ]
+  (cycle-nth :day (:value %2))
+
+  "dans n jours"
+  [#"(?i)dans ?" (dim :number) #"(?i)jours?" ]
+  (cycle-nth :day (:value %2))
   
   "le <cycle> après|suivant <time>"
   [#"(?i)l[ea']? ?" (dim :cycle) #"(?i)suivante?|apr[eèé]s" (dim :time)]

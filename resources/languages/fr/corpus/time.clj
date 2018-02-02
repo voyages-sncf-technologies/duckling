@@ -4,7 +4,7 @@
 
   "maintenant"
   "tout de suite"
-  (datetime 2013 2 12 4 30 00)
+  (datetime 2013 2 12)
 
   "aujourd'hui"
   "ce jour"
@@ -417,16 +417,20 @@
   "dans un jour"
   (datetime 2013 2 13 4)
 
-  ;"dans 1 jour à 10h"
-  ;(datetime 2013 2 13 10)
+  "dans un jour"
+  (datetime 2013 2 13)
 
-  ;"dans 2 jours au soir"
-  ;(datetime 2013 2 14 10)
+  "dans 1 jour à 10h"
+  (datetime 2013 2 13 10)
+
+  "dans 2 jours au soir"
+  (datetime-interval [2013 2 14 18] [2013 2 15 00])
 
   ;"dans 2 semaines dans l'après-midi"
+  ;(datetime-interval [2013 2 26 18] [2013 2 26 00])
 
   "dans 7 jours"
-  (datetime 2013 2 19 4)
+  (datetime 2013 2 19)
 
   "dans 1 semaine"
   "dans une semaine"

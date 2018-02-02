@@ -125,7 +125,7 @@
 
   "maintenant"
   #"(?i)maintenant|tout de suite"
-  (cycle-nth :second 0)
+  (cycle-nth :day 0)
 
   "aujourd'hui"
   #"(?i)aujourd'? ?hui|ce jour|dans la journ[ée]e?|en ce moment"
