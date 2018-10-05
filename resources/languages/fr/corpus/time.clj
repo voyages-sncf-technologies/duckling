@@ -35,6 +35,7 @@
   "lundi"
   "lun."
   "ce lundi"
+  "dans la journée de lundi"
   (datetime 2013 2 18 :day-of-week 1)
 
   "lundi 18 février"
@@ -74,6 +75,7 @@
   "le 2 mars"
   "2 mars"
   "le 2/3"
+  "dans la journée du 2 mars"
   (datetime 2013 3 2 :day 2 :month 3)
 
   "le 2 mars à 5h"
@@ -413,9 +415,6 @@
   "dans 24 heures"
   "dans vingt quatre heures"
   (datetime 2013 2 13 4 30)
-
-  "dans un jour"
-  (datetime 2013 2 13 4)
 
   "dans un jour"
   (datetime 2013 2 13)

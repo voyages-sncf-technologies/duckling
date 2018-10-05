@@ -164,7 +164,7 @@
   ;; "ce mois" => now is part of it
   ; See also: cycles in en.cycles.clj
   "ce <time>"
-  [#"(?i)ce" (dim :time)]
+  [#"(?i)(ce|(dans la journ[ée]e? d[ue]))" (dim :time)]
   (pred-nth %2 0)
 
   "<day-of-week> prochain" ; assumed to be in the future "dimanche prochain"
