@@ -128,7 +128,7 @@
   (cycle-nth :day 0)
 
   "aujourd'hui"
-  #"(?i)aujourd'? ?hui|ce jour|dans la journ[ée]e?|en ce moment"
+  #"(?i)aujourd'? ?hui|ce jour|dans la journ[ée]e?|en ce moment|(le |la )?m[eê]me jour(n[eé]e)?"
   (cycle-nth :day 0)
 
   "demain"
