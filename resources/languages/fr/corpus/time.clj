@@ -76,6 +76,7 @@
   "2 mars"
   "le 2/3"
   "dans la journée du 2 mars"
+  "dans la journée le 2 mars"
   (datetime 2013 3 2 :day 2 :month 3)
 
   "le 2 mars à 5h"
@@ -591,6 +592,9 @@
 
   "le deuxième week-end de septembre"
   "le second week-end de septembre"
+  ;"le week-end du 13 septembre"
+  ;"le week-end du 14 septembre"
+  ;"le week-end du 15 septembre"
   (datetime-interval [2013 9 13 18] [2013 9 16 00])
 
   "le dernier week-end de septembre"
@@ -681,6 +685,10 @@
   "samedi 13 au dimanche 15 juillet"
   "du samedi 13 au dimanche 15 juillet"
   "du 13 au dimanche 15 juillet"
+  "du 13 au 15/07"
+  "du 13 au 15 07"
+  "13 au 15/07"
+  "13 au 15 07"
   (datetime-interval [2013 7 13] [2013 7 16])
 
   "1er au 10 juillet"
