@@ -64,7 +64,10 @@
   "le 1er mars"
   "premier mars"
   "le 1 mars"
+  "le 1e mars"
   "vendredi 1er mars"
+  ;TODO better
+  "le week-end du 1er"
   (datetime 2013 3 1 :day 1 :month 3)
 
   "le premier mars 2013"
@@ -77,7 +80,14 @@
   "le 2/3"
   "dans la journée du 2 mars"
   "dans la journée le 2 mars"
+  ;TODO better
+  "le week-end du 2"
   (datetime 2013 3 2 :day 2 :month 3)
+
+  ;TODO better
+  "le week-end du 2 au 3 mars"
+  "le week-end du 2 au 3"
+  (datetime-interval [2013 3 2] [2013 3 4])
 
   "le 2 mars à 5h"
   "2 mars à 5h"
@@ -174,6 +184,8 @@
   "le 31/10"
   "31 10"
   "le 31 10"
+  ;TODO better
+  "le week-end du 31 octobre"
   (datetime 2013 10 31 :day 31 :month 10)
 
   "24/12/2014"
@@ -583,18 +595,17 @@
   "à la fin du mois"
   (datetime-interval [2013 2 19] [2013 3 01])
 
-  ; TODO
+  ;TODO
   ;"en début de semaine prochaine"
   ;(datetime-interval [2013 2 18] [2013 2 20])
 
   "le premier week-end de septembre"
+  ;TODO better
+  "un week-end en septembre"
   (datetime-interval [2013 9 6 18] [2013 9 9 00])
 
   "le deuxième week-end de septembre"
   "le second week-end de septembre"
-  ;"le week-end du 13 septembre"
-  ;"le week-end du 14 septembre"
-  ;"le week-end du 15 septembre"
   (datetime-interval [2013 9 13 18] [2013 9 16 00])
 
   "le dernier week-end de septembre"
@@ -678,17 +689,23 @@
 
   "13-15 juillet"
   "13 au 15 juillet"
+  "13 et 15 juillet"
+  "le 13 et 15 juillet"
   "13 jusqu'au 15 juillet"
   "13 juillet au 15 juillet"
+  "du 13 juillet au 15"
   "13 juillet - 15 juillet"
   "entre le 13 et le 15 juillet"
   "samedi 13 au dimanche 15 juillet"
   "du samedi 13 au dimanche 15 juillet"
+  "du samedi 13 juillet au dimanche 15"
   "du 13 au dimanche 15 juillet"
   "du 13 au 15/07"
   "du 13 au 15 07"
   "13 au 15/07"
   "13 au 15 07"
+  "13/07 au 15/07"
+  "du 13/07 au 15"
   (datetime-interval [2013 7 13] [2013 7 16])
 
   "1er au 10 juillet"
