@@ -689,6 +689,7 @@
 
   "13-15 juillet"
   "13 au 15 juillet"
+  "du 13 au 15 juillet"
   "13 et 15 juillet"
   "le 13 et 15 juillet"
   "13 jusqu'au 15 juillet"
@@ -707,6 +708,9 @@
   "13/07 au 15/07"
   "du 13/07 au 15"
   (datetime-interval [2013 7 13] [2013 7 16])
+
+  "du 13 au 15 juillet 2018"
+  (datetime-interval [2018 7 13] [2018 7 16])
 
   "1er au 10 juillet"
   "lundi 1er au mercredi 10 juillet"

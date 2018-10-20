@@ -402,7 +402,7 @@
   (time
     (let [now (t/t 2013 2 12 4 30)
           ctx {:reference-time (t/t 2013 2 12 4 30)
-               :min (t/t 2000)
-               :max (t/t 2018)}]
+               :min (t/t 2013)
+               :max (t/t 2025)}]
       (prn (take 5 (first (f now ctx))))
       (prn (take 5 (second (f now ctx)))))))

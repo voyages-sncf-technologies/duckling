@@ -683,7 +683,7 @@
   (interval %1 %3 true)
 
   "de <datetime> - <datetime> (interval)"
-  [#"(?i)de|depuis|du" (dim :time) #"\-|au|jusqu'(au|[aà])" (dim :time)]
+  [#"(?i)de|depuis" (dim :time) #"\-|au|jusqu'(au|[aà])" (dim :time)]
   (interval %2 %4 true)
 
   "entre <datetime> et <datetime> (interval)"
