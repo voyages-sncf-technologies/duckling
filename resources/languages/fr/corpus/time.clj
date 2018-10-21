@@ -479,6 +479,12 @@
   "jour de noel"
   (datetime 2013 12 25)
 
+  "le jeudi avant noel"
+  (datetime 2013 12 19)
+
+  "le lundi après le jour de l'an"
+  (datetime 2014 01 06)
+
   "le soir de noël"
   (datetime-interval [2013 12 24 18] [2013 12 25 00])
 
@@ -763,10 +769,14 @@
   "n'importe quand avant 16h"
   (datetime 2013 2 12 16 :direction :before)
 
+  "mercredi avant 16h"
+  (datetime 2013 2 13 16 :direction :before)
+
   "demain jusqu'à 16h"
   (datetime-interval [2013 2 13 0] [2013 2 13 17])
 
   "le 20 à partir de 10h"
+  "le 20 après 10h"
   (datetime 2013 2 20 10 :direction :after) ; FIXME should be :
   ;(datetime-interval [2013 2 20 10] [2013 2 21])
 

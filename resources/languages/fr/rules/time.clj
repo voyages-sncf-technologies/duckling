@@ -101,27 +101,27 @@
   ; Holiday TODO: check online holidays
   "noel"
   #"(?i)(jour de )?no[eë]l"
-  (month-day 12 25)
+  (assoc (month-day 12 25) :form :holiday)
 
   "st valentin"
   #"(?i)(la )?(st|saint) ?valentin"
-  (month-day 02 14)
+  (assoc (month-day 02 14) :form :holiday)
 
   "soir de noël"
   #"(?i)soir(ée)? de no[eë]l"
-  (interval (intersect (month-day 12 24) (hour 18)) (intersect (month-day 12 25) (hour 00)) false)
+  (assoc (interval (intersect (month-day 12 24) (hour 18)) (intersect (month-day 12 25) (hour 00)) false) :form :holiday)
 
   "jour de l'an"
-  #"(?i)(jour de l'|nouvel )an"
-  (month-day 1 1)
+  #"(?i)((le )?jour de l'|nouvel )an"
+  (assoc (month-day 1 1) :form :holiday)
 
   "toussaint"
   #"(?i)((la |la journée de la |jour de la )?toussaint|jour des morts)"
-  (month-day 11 1)
+  (assoc (month-day 11 1) :form :holiday)
 
   "1er mai"
   #"(?i)f(e|ê)te du travail"
-  (month-day 5 1)
+  (assoc (month-day 5 1) :form :holiday)
 
   "maintenant"
   #"(?i)maintenant|tout de suite"
@@ -726,5 +726,13 @@
   "après le <day-of-month>"
   [#"(?i)apr[eè]s le|[aà] partir du" (integer 1 31)]
   (merge (day-of-month (:value %2)) {:direction :after})
+
+  "<named-day> avant <date>"
+  [{:form :day-of-week} #"(?i)avant?" {:form :holiday}]
+  (pred-nth-after %1 %3 -1)
+
+  "<named-day> après <date>"
+  [{:form :day-of-week} #"(?i)apr[eèé]s?" {:form :holiday}]
+  (pred-nth-after %1 %3 0)
 
 )
