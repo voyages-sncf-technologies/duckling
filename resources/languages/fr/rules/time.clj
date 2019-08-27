@@ -694,15 +694,15 @@
 
   "<time-of-day> - <time-of-day> (interval)"
   [{:form :time-of-day} #"\-|[aà]|au|jusqu'(au|[aà])" {:form :time-of-day}]
-  (interval %1 %3 true)
+  (interval %1 %3 false)
 
   "de <time-of-day> - <time-of-day> (interval)"
   [#"(?i)(midi )?de" {:form :time-of-day} #"\-|[aà]|au|jusqu'(au|[aà])" {:form :time-of-day}] ;hack to fix midi + interval intersection
-  (interval %2 %4 true)
+  (interval %2 %4 false)
 
   "entre <time-of-day> et <time-of-day> (interval)"
   [#"(?i)entre" {:form :time-of-day} #"et" {:form :time-of-day}]
-  (interval %2 %4 true)
+  (interval %2 %4 false)
 
   ; this should be a one-sided interval
   ;"avant <time-of-day>(interval)"
