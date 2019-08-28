@@ -680,15 +680,15 @@
 
   "<datetime> - <datetime> (interval)"
   [(dim :time #(not (:latent %))) #"\-|au|jusqu'(au|[aà])" (dim :time #(not (:latent %)))]
-  (interval %1 %3 true)
+  (interval %1 %3 (= :hour (:grain %3)))
 
   "de <datetime> - <datetime> (interval)"
   [#"(?i)de|depuis" (dim :time) #"\-|au|jusqu'(au|[aà])" (dim :time)]
-  (interval %2 %4 true)
+  (interval %2 %4 (= :hour (:grain %4)))
 
   "entre <datetime> et <datetime> (interval)"
   [#"(?i)entre" (dim :time) #"et" (dim :time)]
-  (interval %2 %4 true)
+  (interval %2 %4 (= :hour (:grain %4)))
 
   ; Specific for time-of-day, to help resolve ambiguities
 

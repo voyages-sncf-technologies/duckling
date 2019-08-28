@@ -743,6 +743,10 @@
   "entre 9h30 et 11h jeudi"
   "jeudi mais entre 9h30 et 11h"
   "jeudi par exemple entre 9h30 et 11h"
+  "entre jeudi 9h30 et jeudi 11h"
+  "entre jeudi à 9h30 et jeudi à 11h"
+  "entre le 14/2 à 9h30 et le 14/2 à 11h"
+  "du 14/2 à 9h30 au 14/2 à 11h"
   (datetime-interval [2013 2 14 9 30] [2013 2 14 11])
 
   "9h30 - 11h00 Jeudi"
@@ -773,7 +777,7 @@
   (datetime 2013 2 13 16 :direction :before)
 
   "demain jusqu'à 16h"
-  (datetime-interval [2013 2 13 0] [2013 2 13 17])
+  (datetime-interval [2013 2 13 0] [2013 2 13 16])
 
   "le 20 à partir de 10h"
   "le 20 après 10h"
@@ -785,7 +789,7 @@
   ;(datetime-interval [2013 2 15 12] [2013 2 16])
 
   "le 20 jusqu'à 18h"
-  (datetime-interval [2013 2 20] [2013 2 20 19])
+  (datetime-interval [2013 2 20] [2013 2 20 18])
 
   "14 - 20 sept. 2014"
   (datetime-interval [2014 9 14] [2014 9 21])
