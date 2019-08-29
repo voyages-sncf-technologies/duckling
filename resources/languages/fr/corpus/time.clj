@@ -430,9 +430,11 @@
   (datetime 2013 2 13 4 30)
 
   "dans un jour"
+  "dans 1j"
   (datetime 2013 2 13)
 
   "dans 1 jour à 10h"
+  "dans 1j à 10h"
   (datetime 2013 2 13 10)
 
   "dans 2 jours au soir"

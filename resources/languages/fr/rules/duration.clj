@@ -56,6 +56,11 @@
   {:dim :duration
    :value (duration (:grain %2) (:value %1))}
 
+  "<integer>j"
+  [#"(?i)(\d\d?\d?\d?)j"]
+  {:dim :duration
+   :value (duration :day (Integer/parseInt (-> %1 :groups first)))}
+
   "une <unit-of-duration>"
   [#"(?i)une|la|le?" (dim :unit-of-duration)]
   {:dim :duration
