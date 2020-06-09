@@ -751,6 +751,9 @@
   "du 14/2 à 9h30 au 14/2 à 11h"
   (datetime-interval [2013 2 14 9 30] [2013 2 14 11])
 
+  "jeudi entre 11h et 12h"
+  (datetime-interval [2013 2 14 11] [2013 2 14 12])
+
   "9h30 - 11h00 Jeudi"
   (datetime-interval [2013 2 14 9 30] [2013 2 14 11 0])
 

@@ -704,6 +704,10 @@
   [#"(?i)entre" {:form :time-of-day} #"et" {:form :time-of-day}]
   (interval %2 %4 false)
 
+  "entre 11h et 12h (interval)"
+  [#"(?i)(entre|de)" (integer 0 23) #"(?i)h\.?(eure)?s?" #"\-|[aà]|au|jusqu'(au|[aà])|et" (integer 0 23) #"(?i)h\.?(eure)?s?"]
+  (interval (assoc (hour (:value %2) (< (:value %5) 12)) :latent true) (assoc (hour (:value %5) (< (:value %5) 12)) :latent true) false)
+
   ; this should be a one-sided interval
   ;"avant <time-of-day>(interval)"
   ;[#"(?i)avant" {:form :time-of-day}]
